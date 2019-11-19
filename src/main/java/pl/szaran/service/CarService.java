@@ -4,7 +4,9 @@ import lombok.*;
 import pl.szaran.converters.CarsJsonConverter;
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
+import pl.szaran.service.enums.SortType;
 import pl.szaran.validation.CarValidator;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -35,5 +37,39 @@ public class CarService {
                 }).collect(Collectors.toSet());
     }
 
+    /**
+     * Metoda, która zwraca nową kolekcję elementów Car posortowaną
+     * według podanego jako argument metody kryterium. Metoda powinna
+     * mieć możliwość sortowania po nazwie modelu, kolorze, cenie oraz
+     * przebiegu. Dodatkowo należy określić czy sortowanie ma odbywać
+     * się malejąco czy rosnąco.
+     **/
 
+
+    public List<Car> sortBy() {
+
+        SortType sortType = UserDataService.getSortType();
+        boolean ascending = UserDataService.getSortOrder();
+
+        //turn on preview for switch expressions
+        var sortedCars = switch (sortType) {
+            case COLOR -> cars.stream().sorted(Comparator.comparing(Car::getColor));
+            case MODEL -> cars.stream().sorted(Comparator.comparing(Car::getModel));
+            case PRICE -> cars.stream().sorted(Comparator.comparing(Car::getPrice));
+            default -> cars.stream().sorted(Comparator.comparing(Car::getMileage));
+        };
+
+        var sortedCarsByOrder = sortedCars.collect(Collectors.toList());
+        if (!ascending) {
+            Collections.reverse(sortedCarsByOrder);
+        }
+        return sortedCarsByOrder;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Cars: \n"
+                + cars;
+    }
 }
