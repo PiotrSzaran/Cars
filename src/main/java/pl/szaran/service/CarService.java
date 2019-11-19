@@ -67,6 +67,20 @@ public class CarService {
 
     }
 
+    /**
+     * Metoda zwraca kolekcję elementów typu Car, które posiadają
+     * przebieg o wartości większej niż wartość podana jako argument
+     * metody.
+     **/
+
+    public List<Car> getWithMileageGreaterThan() {
+        Long mileage = UserDataService.getLong("Podaj przebieg:");
+        return cars
+                .stream()
+                .filter(o -> o.getMileage() > mileage)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return "Cars: \n"
