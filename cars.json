@@ -1,0 +1,63 @@
+ [
+    {
+      "model": "BMW",
+      "price": 120,
+      "color": "BLACK",
+      "mileage": 1500,
+      "components": [
+        "ABS",
+        "ALLOY WHEELS"
+      ]
+    },
+   {
+     "model": "ALFA ROMEO",
+     "price": 110,
+     "color": "RED",
+     "mileage": 1700,
+     "components": [
+       "RADIO",
+       "ALLOY WHEELS"
+     ]
+   },
+   {
+     "model": "OPEL",
+     "price": 60,
+     "color": "YELLOW",
+     "mileage": 150000,
+     "components": [
+       "ABS",
+       "AIR CONDITIONING"
+     ]
+   },
+   {
+     "model": "CITROEN",
+     "price": 900,
+     "color": "GREY",
+     "mileage": 1200,
+     "components": [
+       "AIR CONDITIONING",
+       "ALLOY WHEELS"
+     ]
+   },
+    {
+      "model": "MAZDA",
+      "price": 160,
+      "color": "WHITE",
+      "mileage": 2500,
+      "components": [
+        "AIR CONDITIONING",
+        "BLUETOOTH"
+      ]
+    },
+   {
+     "model": "MAZDA",
+     "price": 60,
+     "color": "RED",
+     "mileage": 2510,
+     "components": [
+       "AIR CONDITIONING",
+       "BLUETOOTH",
+       "ALLOY WHEELS"
+     ]
+   }
+  ]
