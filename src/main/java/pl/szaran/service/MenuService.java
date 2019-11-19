@@ -1,6 +1,7 @@
 package pl.szaran.service;
 
 import pl.szaran.exceptions.MyException;
+import pl.szaran.model.Car;
 
 public class MenuService {
 
@@ -11,7 +12,8 @@ public class MenuService {
     }
 
     private void showMenu() {
-        System.out.println("1.");
+        System.out.println("\n");
+        System.out.println("1. Sortowanie kolekcji samochodów według wybranego kryterium");
         System.out.println("2.");
         System.out.println("3.");
         System.out.println("4.");
@@ -32,7 +34,7 @@ public class MenuService {
 
                 switch (option) {
                     case 1:
-
+                        showSortedCars();
                         break;
                     case 2:
 
@@ -69,4 +71,14 @@ public class MenuService {
             System.err.println(e.getMessage());
         }
     }
+
+    public void showSortedCars() {
+        var list = carService.sortBy();
+
+        for (Car c: list
+             ) {
+            System.out.println(c);
+        }
+    }
+
 }
