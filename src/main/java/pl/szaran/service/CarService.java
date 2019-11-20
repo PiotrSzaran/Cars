@@ -4,6 +4,7 @@ import lombok.*;
 import pl.szaran.converters.CarsJsonConverter;
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
+import pl.szaran.model.enums.Color;
 import pl.szaran.service.enums.SortType;
 import pl.szaran.validation.CarValidator;
 
@@ -79,6 +80,31 @@ public class CarService {
                 .stream()
                 .filter(o -> o.getMileage() > mileage)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Metoda zwraca mapę, której kluczem jest kolor, natomiast
+     * wartością ilość samochodów, które posiadają taki kolor. Mapa
+     * powinna być posortowana malejąco po wartościach.
+     **/
+
+    public Map<Color, Long> howManyCarsWithColor() {
+
+        var colors = cars.stream().map(car -> car.getColor()).collect(Collectors.toList());
+        Map<Color, Long> map = new HashMap<>();
+
+        for (Color color : colors) {
+            map.put(color, cars.stream().filter(car -> car.getColor().equals(color)).count());
+        }
+
+        //sortowanie mapy
+        LinkedHashMap<Color, Long> linkedHashMap = new LinkedHashMap<>();
+        map.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .forEachOrdered(x -> linkedHashMap.put(x.getKey(), x.getValue()));
+
+        return linkedHashMap;
     }
 
     @Override
