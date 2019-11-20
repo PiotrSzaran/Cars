@@ -90,10 +90,13 @@ public class CarService {
 
     public Map<Color, Long> howManyCarsWithColor() {
 
-        var colors = cars.stream().map(car -> car.getColor()).collect(Collectors.toList());
+        //var colors = cars.stream().map(car -> car.getColor()).collect(Collectors.toList());
+        //zamiast listy możemy posłużyć się kolekcją Set:
+        EnumSet<Color> colorSet = EnumSet.allOf(Color.class);
+
         Map<Color, Long> map = new HashMap<>();
 
-        for (Color color : colors) {
+        for (Color color : colorSet) {
             map.put(color, cars.stream().filter(car -> car.getColor().equals(color)).count());
         }
 
