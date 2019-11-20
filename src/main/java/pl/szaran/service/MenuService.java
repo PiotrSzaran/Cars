@@ -2,10 +2,10 @@ package pl.szaran.service;
 
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
-
+import java.util.List;
 public class MenuService {
 
-     private final CarService carService;
+    private final CarService carService;
 
     public MenuService(CarService carService) {
         this.carService = carService;
@@ -14,7 +14,7 @@ public class MenuService {
     private void showMenu() {
         System.out.println("\n");
         System.out.println("1. Sortowanie kolekcji samochodów według wybranego kryterium");
-        System.out.println("2.");
+        System.out.println("2. Pokaż samochody o większym niż podany przebiegu");
         System.out.println("3.");
         System.out.println("4.");
         System.out.println("5.");
@@ -34,10 +34,10 @@ public class MenuService {
 
                 switch (option) {
                     case 1:
-                        showSortedCars();
+                        showList(carService.sortBy());
                         break;
                     case 2:
-
+                        showList(carService.getWithMileageGreaterThan());
                         break;
                     case 3:
 
@@ -72,13 +72,11 @@ public class MenuService {
         }
     }
 
-    public void showSortedCars() {
-        var list = carService.sortBy();
-
-        for (Car c: list
-             ) {
-            System.out.println(c);
+    private void showList(List<Car> list) {
+        if (list.equals(null)) {
+            throw new MyException("CAR COLLECTION ERROR");
+        } else {
+            list.forEach(car -> System.out.println(car));
         }
     }
-
 }
