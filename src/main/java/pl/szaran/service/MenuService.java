@@ -2,7 +2,11 @@ package pl.szaran.service;
 
 import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
+import pl.szaran.model.enums.Color;
+
 import java.util.List;
+import java.util.Map;
+
 public class MenuService {
 
     private final CarService carService;
@@ -15,7 +19,7 @@ public class MenuService {
         System.out.println("\n");
         System.out.println("1. Sortowanie kolekcji samochodów według wybranego kryterium");
         System.out.println("2. Pokaż samochody o większym niż podany przebiegu");
-        System.out.println("3.");
+        System.out.println("3. Pokaż ile samochodów w kolekcji jest danego koloru");
         System.out.println("4.");
         System.out.println("5.");
         System.out.println("6.");
@@ -40,7 +44,7 @@ public class MenuService {
                         showList(carService.getWithMileageGreaterThan());
                         break;
                     case 3:
-
+                        showHowManyCarsWithColor();
                         break;
                     case 4:
 
@@ -77,6 +81,13 @@ public class MenuService {
             throw new MyException("CAR COLLECTION ERROR");
         } else {
             list.forEach(car -> System.out.println(car));
+        }
+    }
+
+    private void showHowManyCarsWithColor() {
+        Map<Color, Long> map = carService.howManyCarsWithColor();
+        for (Map.Entry<Color, Long> entry : map.entrySet()) {
+            System.out.println(entry.getKey().toString() + " - " + entry.getValue());
         }
     }
 }
