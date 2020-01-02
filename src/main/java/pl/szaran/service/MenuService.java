@@ -6,6 +6,7 @@ import pl.szaran.model.enums.Color;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class MenuService {
 
@@ -20,7 +21,7 @@ public class MenuService {
         System.out.println("1. Sortowanie kolekcji samochodów według wybranego kryterium");
         System.out.println("2. Pokaż samochody o większym niż podany przebiegu");
         System.out.println("3. Pokaż ile samochodów w kolekcji jest danego koloru");
-        System.out.println("4.");
+        System.out.println("4. Pokaż najdroższy model samochodu");
         System.out.println("5.");
         System.out.println("6.");
         System.out.println("7.");
@@ -47,7 +48,7 @@ public class MenuService {
                         showHowManyCarsWithColor();
                         break;
                     case 4:
-
+                        showModelWithBiggestPrice();
                         break;
                     case 5:
 
@@ -88,6 +89,13 @@ public class MenuService {
         Map<Color, Long> map = carService.howManyCarsWithColor();
         for (Map.Entry<Color, Long> entry : map.entrySet()) {
             System.out.println(entry.getKey().toString() + " - " + entry.getValue());
+        }
+    }
+
+    private void showModelWithBiggestPrice() {
+        Map<String, Car> map = carService.getModelWithBiggestPrice();
+        for (Map.Entry<String, Car> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().toString());
         }
     }
 }
