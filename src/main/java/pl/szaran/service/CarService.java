@@ -155,7 +155,7 @@ public class CarService {
      */
     public Map<String, BigDecimal> getStatistics() {
 
-        Map<String, BigDecimal> map = new HashMap<>();
+        Map<String, BigDecimal> map = new LinkedHashMap<>(); //aby zachować kolejność dodawania par
 
         // map.put("Min price", cars.stream().min(Comparator.comparing(Car::getPrice)).orElseThrow(NoSuchElementException::new).getPrice()); //można krócej
         map.put("Min price", cars.stream().map(Car::getPrice).reduce(BigDecimal::min).get());
