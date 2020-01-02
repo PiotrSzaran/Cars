@@ -8,6 +8,8 @@ import pl.szaran.model.enums.Color;
 import pl.szaran.service.enums.SortType;
 import pl.szaran.validation.CarValidator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -145,6 +147,64 @@ public class CarService {
         return map;
     }
 
+    /**
+     * Metoda wypisuje statystykę samochodów w zestawieniu. W
+     * statystyce powinny znajdować się wartość średnia, wartość
+     * najmniejsza, wartość największa dla pól opisujących cenę oraz
+     * przebieg samochodów.
+     */
+    public Map<String, BigDecimal> getStatistics() {
+
+        Map<String, BigDecimal> map = new HashMap<>();
+
+        // map.put("Min price", cars.stream().min(Comparator.comparing(Car::getPrice)).orElseThrow(NoSuchElementException::new).getPrice()); //można krócej
+        map.put("Min price", cars.stream().map(Car::getPrice).reduce(BigDecimal::min).get());
+        //map.put("Max price", cars.stream().max(Comparator.comparing(Car::getPrice)).orElseThrow(NoSuchElementException::new).getPrice());
+        map.put("Max price", cars.stream().map(Car::getPrice).reduce(BigDecimal::max).get());
+        //map.put("Min mileage", BigDecimal.valueOf(cars.stream().min(Comparator.comparing(Car::getMileage)).orElseThrow(NoSuchElementException::new).getMileage()));
+        map.put("Min mileage", BigDecimal.valueOf(cars.stream().map(Car::getMileage).reduce(Long::min).get()));
+        //map.put("Max mileage", BigDecimal.valueOf(cars.stream().max(Comparator.comparing(Car::getMileage)).orElseThrow(NoSuchElementException::new).getMileage()));
+        map.put("Max mileage", BigDecimal.valueOf(cars.stream().map(Car::getMileage).reduce(Long::max).get()));
+
+        BigDecimal priceSum = cars.stream().map(Car::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+        map.put("Price sum", priceSum);
+        map.put("Average price", priceSum.divide(BigDecimal.valueOf(cars.size()), 2, RoundingMode.CEILING));
+
+        BigDecimal mileageSum = BigDecimal.valueOf(cars.stream().map(Car::getMileage).reduce((a, b) -> a + b).get());
+        map.put("Mileage sum", mileageSum);
+        map.put("Average milage", mileageSum.divide(BigDecimal.valueOf(cars.size()), 2, RoundingMode.CEILING));
+
+        return map;
+    }
+
+
+    /**
+     * Metoda zwraca samochód, którego cena jest największa. W
+     * przypadku kiedy więcej niż jeden samochód posiada największą
+     * cenę należy zwrócić kolekcję tych samochodów.
+     */
+
+
+    /**
+     * Metoda zwraca kolekcję samochodów, w której każdy samochód
+     * posiada posortowaną alfabetycznie kolekcję komponentów.
+     */
+
+
+    /**
+     * Metoda zwraca mapę, której kluczem jest nazwa komponentu,
+     * natomiast wartością jest kolekcja samochodów, które posiadają
+     * ten komponent. Pary w mapie powinny być posortowane malejąco po
+     * ilości elementów w kolekcji reprezentującej wartość pary.
+     */
+
+
+    /**
+     * Metoda zwraca kolekcję samochodów, których cena znajduje się w
+     * przedziale cenowym <a, b>. Wartości a oraz b przekazywane są
+     * jako argument metody. Kolekcja powinna być posortowana
+     * alfabetycznie według nazw samochodów.
+     */
 
     @Override
     public String toString() {
