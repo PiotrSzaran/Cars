@@ -4,9 +4,9 @@ import pl.szaran.exceptions.MyException;
 import pl.szaran.model.Car;
 import pl.szaran.model.enums.Color;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class MenuService {
 
@@ -22,7 +22,7 @@ public class MenuService {
         System.out.println("2. Pokaż samochody o większym niż podany przebiegu");
         System.out.println("3. Pokaż ile samochodów w kolekcji jest danego koloru");
         System.out.println("4. Pokaż najdroższy model samochodu");
-        System.out.println("5.");
+        System.out.println("5. Statystyka cen i przebiegu");
         System.out.println("6.");
         System.out.println("7.");
         System.out.println("8.");
@@ -51,7 +51,7 @@ public class MenuService {
                         showModelWithBiggestPrice();
                         break;
                     case 5:
-
+                        showStatistics();
                         break;
                     case 6:
 
@@ -96,6 +96,13 @@ public class MenuService {
         Map<String, Car> map = carService.getModelWithBiggestPrice();
         for (Map.Entry<String, Car> entry : map.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue().toString());
+        }
+    }
+
+    private void showStatistics() {
+        var map = carService.getStatistics();
+        for (Map.Entry<String, BigDecimal> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
 }
