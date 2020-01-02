@@ -110,6 +110,42 @@ public class CarService {
         return linkedHashMap;
     }
 
+    /**
+     * Metoda zwraca mapę, której kluczem jest nazwa modelu samochodu,
+     * natomiast wartością obiekt klasy Car, który reprezentuje
+     * najdroższy samochód o tej nazwie modelu. Mapa powinna być
+     * posortowana kluczami malejąco.
+     */
+
+    public Map<String, Car> getModelWithBiggestPrice() {
+
+        Map<String, Car> map = new HashMap<>();
+
+        var models = cars
+                .stream()
+                .map(Car::getModel)
+                .collect(Collectors.toSet());
+
+        for (String model : models
+        ) {
+            /**
+             * Tutaj tworze liste samochodów konkretnego modelu, sortując ją po cenie od najwyższej do najniższej.
+             * Najdroższy samochód na liście ma index 0.
+             */
+            var list = cars
+                    .stream()
+                    .filter(car -> car.getModel().matches(model))
+                    .sorted(Comparator.comparing(Car::getPrice).reversed())
+                    .collect(Collectors.toList());
+
+            map.put(model, list.get(0));
+
+        }
+
+        return map;
+    }
+
+
     @Override
     public String toString() {
         return "Cars: \n"
