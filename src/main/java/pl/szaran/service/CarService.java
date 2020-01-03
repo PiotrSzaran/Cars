@@ -184,6 +184,12 @@ public class CarService {
      * cenę należy zwrócić kolekcję tych samochodów.
      */
 
+    public List<Car> getCarWithBiggestPrice() {
+
+        var biggestPrice = cars.stream().map(Car::getPrice).reduce(BigDecimal::max).get();
+
+        return cars.stream().filter(car -> car.getPrice().equals(biggestPrice)).collect(Collectors.toList());
+    }
 
     /**
      * Metoda zwraca kolekcję samochodów, w której każdy samochód
