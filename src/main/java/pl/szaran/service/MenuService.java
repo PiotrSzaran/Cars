@@ -23,7 +23,7 @@ public class MenuService {
         System.out.println("3. Pokaż ile samochodów w kolekcji jest danego koloru");
         System.out.println("4. Pokaż najdroższy model samochodu");
         System.out.println("5. Statystyka cen i przebiegu");
-        System.out.println("6.");
+        System.out.println("6. Wyświetl najdroższy samochód");
         System.out.println("7.");
         System.out.println("8.");
         System.out.println("99. WYJSCIE");
@@ -54,7 +54,7 @@ public class MenuService {
                         showStatistics();
                         break;
                     case 6:
-
+                        showCarWithBiggestPrice();
                         break;
                     case 7:
 
@@ -103,6 +103,19 @@ public class MenuService {
         var map = carService.getStatistics();
         for (Map.Entry<String, BigDecimal> entry : map.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    private void showCarWithBiggestPrice() {
+
+        var list = carService.getCarWithBiggestPrice();
+
+        if (list.size() == 1) {
+            System.out.println("kolekcja posiada jeden samochód o największej cenie:");
+            System.out.println(list.get(0));
+        } else {
+            System.out.println("liczba samochodów o największej cenie: " + list.size());
+            list.stream().forEach(car -> System.out.println(car));
         }
     }
 }
