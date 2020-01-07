@@ -204,6 +204,50 @@ public class CarService {
      * ilości elementów w kolekcji reprezentującej wartość pary.
      */
 
+    public Map<String, Set<Car>> getCarsByComponent() {
+
+        Map<String, Set<Car>> map = new LinkedHashMap<>();
+        Map<String, Integer> componentOccurrenceMap = new HashMap<>();
+
+        Set<String> components = new HashSet<>();
+
+        //wypełniam kolekcję components komponentami
+        cars
+                .stream()
+                .map(Car::getComponents)
+                .forEach(c -> components.addAll(c));
+
+        //mapa pomocnicza:
+        for (String str : components
+        ) {
+            componentOccurrenceMap.put(str, cars
+                    .stream()
+                    .filter(car -> car.getComponents().contains(str))
+                    .collect(Collectors.toSet()).size());
+        }
+
+        //sorotwanie malejąco mapy po wartościach:
+        var sortedMap =
+                componentOccurrenceMap
+                        .entrySet()
+                        .stream()
+                        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                        .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+        System.out.println(sortedMap); //do podglądu
+
+        for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
+            map.put(entry.getKey(), cars
+                    .stream()
+                    .filter(car -> car.getComponents().contains(entry.getKey()))
+                    .collect(Collectors.toSet()));
+        }
+
+        return map;
+    }
 
     /**
      * Metoda zwraca kolekcję samochodów, których cena znajduje się w
