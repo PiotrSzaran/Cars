@@ -7,6 +7,7 @@ import pl.szaran.model.enums.Color;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MenuService {
 
@@ -60,7 +61,7 @@ public class MenuService {
 
                         break;
                     case 8:
-
+                        showCarsByComponent();
                         break;
                     case 99:
                         quit = true;
@@ -116,6 +117,13 @@ public class MenuService {
         } else {
             System.out.println("liczba samochodów o największej cenie: " + list.size());
             list.stream().forEach(car -> System.out.println(car));
+        }
+    }
+
+    private void showCarsByComponent() {
+        var map = carService.getCarsByComponent();
+        for (Map.Entry<String, Set<Car>> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + ": \n" + entry.getValue() + "\n");
         }
     }
 }
