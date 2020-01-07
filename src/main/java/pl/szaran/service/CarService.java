@@ -256,6 +256,60 @@ public class CarService {
      * alfabetycznie według nazw samochodów.
      */
 
+    /*public List<Car> getCarsWithPriceBetween(BigDecimal firstPrice, BigDecimal secondPrice) {
+
+        if (firstPrice == null) {
+            throw new MyException("first price is null");
+        }
+
+        if (firstPrice.compareTo(BigDecimal.ZERO) < 0) {
+            throw new MyException("first price should be equal or bigger than 0");
+        }
+
+        if (secondPrice == null) {
+            throw new MyException("second price is null");
+        }
+
+        if (secondPrice.compareTo(BigDecimal.ZERO) < 0) {
+            throw new MyException("second price should be equal or bigger than 0");
+        }
+
+        return (firstPrice.compareTo(secondPrice)) < 0 ? cars
+                .stream()
+                .filter(car -> car.getPrice().compareTo(firstPrice) > -1)
+                .filter(car -> car.getPrice().compareTo(secondPrice) < 1)
+                .sorted(Comparator.comparing(Car::getModel))
+                .collect(Collectors.toList()) : cars
+                .stream()
+                .filter(car -> car.getPrice().compareTo(secondPrice) > -1)
+                .filter(car -> car.getPrice().compareTo(firstPrice) < 1)
+                .sorted(Comparator.comparing(Car::getModel))
+                .collect(Collectors.toList());
+    }
+
+     */
+
+    /**
+     *Poniższa metoda robi dokładnie to samo co powyższa, ale dane dostarczane są przez użytkownika
+     */
+    public List<Car> getCarsWithPriceBetween() {
+
+        var price1 = UserDataService.getBigDecimal("Podaj pierwszą wartość ceny:");
+        var price2 = UserDataService.getBigDecimal("Podaj drugą wartość ceny:");
+
+        return (price1.compareTo(price2)) < 0 ? cars
+                .stream()
+                .filter(car -> car.getPrice().compareTo(price1) > -1)
+                .filter(car -> car.getPrice().compareTo(price2) < 1)
+                .sorted(Comparator.comparing(Car::getModel))
+                .collect(Collectors.toList()) : cars
+                .stream()
+                .filter(car -> car.getPrice().compareTo(price2) > -1)
+                .filter(car -> car.getPrice().compareTo(price1) < 1)
+                .sorted(Comparator.comparing(Car::getModel))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public String toString() {
         return "Cars: \n"
