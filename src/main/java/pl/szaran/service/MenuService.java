@@ -26,7 +26,8 @@ public class MenuService {
         System.out.println("5. Statystyka cen i przebiegu");
         System.out.println("6. Wyświetl najdroższy samochód");
         System.out.println("7.");
-        System.out.println("8.");
+        System.out.println("8. Pokaż samochody zawierające konkretny komponent");
+        System.out.println("9. Wyświetl samochody z podanego przedziału cenowego");
         System.out.println("99. WYJSCIE");
     }
 
@@ -62,6 +63,9 @@ public class MenuService {
                         break;
                     case 8:
                         showCarsByComponent();
+                        break;
+                    case 9:
+                        showList(carService.getCarsWithPriceBetween());
                         break;
                     case 99:
                         quit = true;
