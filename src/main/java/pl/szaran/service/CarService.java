@@ -196,6 +196,17 @@ public class CarService {
      * posiada posortowaną alfabetycznie kolekcję komponentów.
      */
 
+    public List<Car> getCarsWithSortedComponents() {
+
+        List<Car> list = new ArrayList<>();
+
+        for (Car c : cars
+        ) {
+            c.setComponents(new TreeSet<>(c.getComponents()));
+            list.add(c);
+        }
+        return list;
+    }
 
     /**
      * Metoda zwraca mapę, której kluczem jest nazwa komponentu,
@@ -290,7 +301,7 @@ public class CarService {
      */
 
     /**
-     *Poniższa metoda robi dokładnie to samo co powyższa, ale dane dostarczane są przez użytkownika
+     * Poniższa metoda robi dokładnie to samo co powyższa, ale dane dostarczane są przez użytkownika
      */
     public List<Car> getCarsWithPriceBetween() {
 
