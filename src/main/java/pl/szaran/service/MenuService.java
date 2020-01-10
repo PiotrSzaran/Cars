@@ -25,7 +25,7 @@ public class MenuService {
         System.out.println("4. Pokaż najdroższy model samochodu");
         System.out.println("5. Statystyka cen i przebiegu");
         System.out.println("6. Wyświetl najdroższy samochód");
-        System.out.println("7.");
+        System.out.println("7. Pokaż kolekcję samochodów z posortowanymi komponentami");
         System.out.println("8. Pokaż samochody zawierające konkretny komponent");
         System.out.println("9. Wyświetl samochody z podanego przedziału cenowego");
         System.out.println("99. WYJSCIE");
@@ -59,7 +59,7 @@ public class MenuService {
                         showCarWithBiggestPrice();
                         break;
                     case 7:
-
+                        showList(carService.getCarsWithSortedComponents());
                         break;
                     case 8:
                         showCarsByComponent();
